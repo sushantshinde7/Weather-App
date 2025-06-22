@@ -1,58 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App With JavaScript</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>Minimal JS Weather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="search-box">
-                <input type="text" placeholder="Enter your location" class="input-box">
+  <main class="weather-panel">
+    <form id="searchForm" class="search" autocomplete="off">
+      <input id="searchInput"
+             aria-label="City name"
+             placeholder="Enter a city" />
+      <button aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
 
-                <button class="fa-solid fa-magnifying-glass" id="searchBtn"></button>
-            </div>
-        </div>
+    <!-- error -->
+    <section class="not-found" hidden>
+      <p>City not found</p>
+    </section>
 
-        <div class="location-not-found">
-            <h1>Sorry, Location not found!!!</h1>
-            <img src="/assets/404.png" alt="404 Error">
-        </div>
+    <!-- weather -->
+    <section class="weather-card" hidden>
+      <img id="weatherImg" src="/assets/cloud.png" alt="">
+      <p id="temp" class="temp"></p>
+      <p id="desc" class="desc"></p>
+      <div class="stats">
+        <div><i class="fa-solid fa-droplet"></i><span id="humidity"></span></div>
+        <div><i class="fa-solid fa-wind"></i><span id="wind"></span></div>
+      </div>
+    </section>
+  </main>
 
-        <div class="weather-body">
-            <img src="/assets/cloud.png" alt="Weather Image" class="weather-img">
-
-            <div class="weather-box">
-                <p class="temperature">0 <sup>°C</sup></p>
-                <p class="description">light rain</p>
-            </div>
-
-            <div class="weather-details">
-                <div class="humidity">
-                    <i class="fa-sharp fa-solid fa-droplet"></i>
-                    <div class="text">
-                        <span id="humidity">45%</span>
-                        <p>Humidity</p>
-                    </div>
-                </div>
-
-                <div class="wind">
-                    <i class="fa-solid fa-wind"></i>
-                    <div class="text">
-                        <span id="wind-speed">12Km/H</span>
-                        <p>Wind Speed</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <script src="script.js"></script>
-    
+  <script src="js/app.js" type="module"></script>
 </body>
 </html>
