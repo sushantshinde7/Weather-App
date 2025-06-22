@@ -1,5 +1,5 @@
 // js/app.js
-const API_KEY = 'YOUR_API_KEY';          //  <-- pull from env in real life
+const api_key = "c6f566b1e8d04391711053c7d4144be3";          //  <-- pull from env in real life
 const BASE = 'https://api.openweathermap.org/data/2.5/weather';
 
 const $ = sel => document.querySelector(sel);          // 1. tiny helper
@@ -30,7 +30,7 @@ const ui = {                                           // 2. ui-only funcs
 const iconMap = { Clear: 'clear', Rain: 'rain', Snow: 'snow', Mist: 'mist', Clouds: 'cloud' };
 
 async function fetchWeather(city) {                    // 3. data-only func
-  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${API_KEY}`;
+  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error((await res.json()).message);
   return res.json();

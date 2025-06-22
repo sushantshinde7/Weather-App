@@ -59,3 +59,9 @@ body {
 .stats { display: flex; justify-content: space-around; margin-top: 1rem; }
 .stats div { display: flex; align-items: center; gap: .4rem; }
 .stats span { font-weight: 600; }
+
+#weatherImg {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1rem;
+}
