@@ -1,9 +1,10 @@
 // js/app.js
-const api_key = "c6f566b1e8d04391711053c7d4144be3";          //  <-- pull from env in real life
+const api_key = "c6f566b1e8d04391711053c7d4144be3";  // <-- secure in env in real apps
 const BASE = 'https://api.openweathermap.org/data/2.5/weather';
 
-const $ = sel => document.querySelector(sel);          // 1. tiny helper
-const ui = {                                           // 2. ui-only funcs
+const $ = sel => document.querySelector(sel);  // selector helper
+
+const ui = {
   card: $('.weather-card'),
   notFound: $('.not-found'),
   temp: $('#temp'),
@@ -11,14 +12,23 @@ const ui = {                                           // 2. ui-only funcs
   humidity: $('#humidity'),
   wind: $('#wind'),
   img: $('#weatherImg'),
+
   showError(msg = 'City not found') {
     this.card.hidden = true;
     this.notFound.hidden = false;
     this.notFound.querySelector('p').textContent = msg;
   },
+
   showWeather({ main, weather, wind }) {
     this.notFound.hidden = true;
     this.card.hidden = false;
+
+    // Re-trigger fade-in animation
+    this.card.classList.remove('fade');
+    void this.card.offsetWidth;  // force reflow
+    this.card.classList.add('fade');
+
+    // Fill UI
     this.temp.textContent = `${Math.round(main.temp)}°C`;
     this.desc.textContent = weather[0].description;
     this.humidity.textContent = `${main.humidity}%`;
@@ -27,9 +37,15 @@ const ui = {                                           // 2. ui-only funcs
   },
 };
 
-const iconMap = { Clear: 'clear', Rain: 'rain', Snow: 'snow', Mist: 'mist', Clouds: 'cloud' };
+const iconMap = {
+  Clear: 'clear',
+  Rain: 'rain',
+  Snow: 'snow',
+  Mist: 'mist',
+  Clouds: 'cloud'
+};
 
-async function fetchWeather(city) {                    // 3. data-only func
+async function fetchWeather(city) {
   const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error((await res.json()).message);
@@ -40,6 +56,7 @@ $('#searchForm').addEventListener('submit', async e => {
   e.preventDefault();
   const city = $('#searchInput').value.trim();
   if (!city) return ui.showError('Please enter a city');
+
   try {
     const data = await fetchWeather(city);
     ui.showWeather(data);
@@ -47,3 +64,5 @@ $('#searchForm').addEventListener('submit', async e => {
     ui.showError(err.message.includes('city') ? 'City not found' : 'Network error');
   }
 });
+
+

@@ -16,6 +16,13 @@ body {
   background: var(--brand-bg);
   font-family: system-ui, sans-serif;
 }
+.app-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #333;
+}
 
 .weather-panel {
   width: clamp(280px, 90vw, 420px);
@@ -62,6 +69,8 @@ body {
 .weather-card {
   text-align: center;
   margin-top: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
 .temp { font-size: 2.5rem; font-weight: 700; }
@@ -77,9 +86,39 @@ body {
   height: auto;
   margin-bottom: 1rem;
 }
-.weather-card,
+
 .temp,
 .desc,
 .stats {
   transition: all 0.3s ease-in-out;
+}
+.footer {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+.footer a {
+  color: #ddd;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 400px) {
+  .stats {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade {
+  animation: fadeIn 0.4s ease-in-out;
 }
