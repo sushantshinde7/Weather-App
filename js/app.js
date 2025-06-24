@@ -64,5 +64,17 @@ $('#searchForm').addEventListener('submit', async e => {
     ui.showError(err.message.includes('city') ? 'City not found' : 'Network error');
   }
 });
+// animated placeholder cycling
+const staticTextStart = "Search city (e.g. ";
+const staticTextEnd = ")";
+const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
+let i = 0;
+
+setInterval(() => {
+  $('#searchInput').placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  i = (i + 1) % placeholders.length;
+}, 2500);
+
+
 
 
