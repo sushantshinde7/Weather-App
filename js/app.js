@@ -29,7 +29,7 @@ const ui = {
     this.card.classList.add('fade');
 
     // Fill UI
-    this.temp.textContent = `${Math.round(main.temp)}°C`;
+    this.temp.querySelector('span').textContent = `${Math.round(main.temp)}°C`;
     this.desc.textContent = weather[0].description;
     this.humidity.textContent = `${main.humidity}%`;
     this.wind.textContent = `${(wind.speed * 3.6).toFixed(1)} km/h`;

@@ -7,7 +7,10 @@
 
 *,
 *::before,
-*::after { box-sizing: border-box; margin: 0; }
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
 
 body {
   min-height: 100vh;
@@ -16,6 +19,7 @@ body {
   background: var(--brand-bg);
   font-family: system-ui, sans-serif;
 }
+
 .app-title {
   text-align: center;
   font-size: 1.8rem;
@@ -29,60 +33,67 @@ body {
   padding: 2rem;
   border-radius: var(--radius);
   background: var(--panel-bg);
-}
-.weather-panel {
   margin: 1rem;
 }
 
-
 .search {
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .search input {
   flex: 1;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: var(--radius);
   background: var(--accent);
   font-size: 1rem;
   text-transform: capitalize;
+  border: none;
 }
+
 .search input:focus {
   outline: none;
   border: 2px solid #00aaff;
   background: #fff;
 }
+
 .search input:focus::placeholder {
   opacity: 0.7;
 }
 
 .search button {
-  width: 3rem; aspect-ratio: 1;
+  width: 3rem;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: var(--accent);
   cursor: pointer;
+  border: none;
 }
+
 .search button:hover {
   background: #d9f0f7;
 }
 
 .weather-card[hidden],
-.not-found[hidden] { display: none; }
+.not-found[hidden] {
+  display: none;
+}
 
 .weather-card {
   text-align: center;
   margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease-in-out;
   animation: fadeIn 0.4s ease-in-out;
 }
 
-.temp { font-size: 2.5rem; font-weight: 700; }
-.desc { text-transform: capitalize; }
-
-.stats { display: flex; justify-content: space-around; margin-top: 1rem; }
-.stats div { display: flex; align-items: center; gap: .4rem; }
-.stats span { font-weight: 600; }
+.weather-card i {
+  color: #0077b6;
+  font-size: 1.2rem;
+}
 
 #weatherImg {
   width: 100px;
@@ -91,11 +102,47 @@ body {
   margin-bottom: 1rem;
 }
 
+.temp {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.desc {
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.2rem;
+}
+
+.stats div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.stats span {
+  font-weight: 600;
+}
+
 .temp,
 .desc,
 .stats {
   transition: all 0.3s ease-in-out;
 }
+
 .footer {
   margin-top: 1.5rem;
   font-size: 0.9rem;
@@ -104,13 +151,16 @@ body {
   position: relative;
   bottom: 0;
 }
+
 .footer a {
   color: #ddd;
   text-decoration: none;
 }
+
 .footer a:hover {
   text-decoration: underline;
 }
+
 @media (max-width: 400px) {
   .stats {
     flex-direction: column;
@@ -118,19 +168,27 @@ body {
     align-items: center;
   }
 }
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .fade {
   animation: fadeIn 0.4s ease-in-out;
 }
-/* Optional: smooth placeholder transition (cosmetic) */
+
+/* Placeholder styling */
 ::placeholder {
   font-weight: 400;
   font-style: italic;
-  font-size: 0.85rem;;
+  font-size: 0.85rem;
   color: #666;
   transition: opacity 0.3s ease;
 }
