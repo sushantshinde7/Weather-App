@@ -1,17 +1,21 @@
 // js/app.js
-const api_key = "c6f566b1e8d04391711053c7d4144be3";  // <-- secure in env in real apps
-const BASE = 'https://api.openweathermap.org/data/2.5/weather';
+const api_key = "c6f566b1e8d04391711053c7d4144be3"; // <-- secure in env in real apps
+const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
-const $ = sel => document.querySelector(sel);  // selector helper
+const $ = (sel) => document.querySelector(sel); // short selector helper
 
 const ui = {
   card: $(".weather-card"),
   notFound: $(".not-found"),
+  img: $("#weatherImg"),
+
   temp: $("#temp"),
+  feels: $("#feels"),
   desc: $("#desc"),
   humidity: $("#humidity"),
   wind: $("#wind"),
-  img: $("#weatherImg"),
+  sunrise: $("#sunrise"),
+  sunset: $("#sunset"),
 
   showError(msg = "City not found") {
     this.card.hidden = true;
@@ -23,14 +27,14 @@ const ui = {
     this.notFound.hidden = true;
     this.card.hidden = false;
 
-    // Re-trigger fade-in animation
+    // Re-trigger animation
     this.card.classList.remove("fade");
     void this.card.offsetWidth;
     this.card.classList.add("fade");
 
-    // Fill UI
+    // Fill values
     this.temp.querySelector("span").textContent = `${Math.round(main.temp)}°C`;
-    $("#feels").textContent = `Feels like ${Math.round(main.feels_like)}°C`;
+    this.feels.textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
     this.humidity.textContent = `${main.humidity}%`;
     this.wind.textContent = `${(wind.speed * 3.6).toFixed(1)} km/h`;
@@ -41,19 +45,26 @@ const ui = {
         minute: "2-digit",
       });
 
-    $("#sunrise").textContent = `Sunrise: ${convertTime(sys.sunrise)}`;
-    $("#sunset").textContent = `Sunset: ${convertTime(sys.sunset)}`;
+    this.sunrise.textContent = `Sunrise: ${convertTime(sys.sunrise)}`;
+    this.sunset.textContent = `Sunset: ${convertTime(sys.sunset)}`;
 
-    this.img.src = `/assets/${iconMap[weather[0].main] || "cloud"}.png`;
+    const iconKey = weather[0].main;
+    this.img.src = `/assets/${iconMap[iconKey] || "cloud"}.png`;
   },
 };
 
+// Basic weather-to-icon mapping
 const iconMap = {
-  Clear: 'clear',
-  Rain: 'rain',
-  Snow: 'snow',
-  Mist: 'mist',
-  Clouds: 'cloud'
+  Clear: "clear",
+  Rain: "rain",
+  Drizzle: "rain",
+  Thunderstorm: "storm",
+  Snow: "snow",
+  Mist: "mist",
+  Smoke: "mist",
+  Haze: "mist",
+  Fog: "mist",
+  Clouds: "cloud",
 };
 
 async function fetchWeather(city) {
@@ -63,18 +74,19 @@ async function fetchWeather(city) {
   return res.json();
 }
 
-$('#searchForm').addEventListener('submit', async e => {
+$("#searchForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const city = $('#searchInput').value.trim();
-  if (!city) return ui.showError('Please enter a city');
+  const city = $("#searchInput").value.trim();
+  if (!city) return ui.showError("Please enter a city");
 
   try {
     const data = await fetchWeather(city);
     ui.showWeather(data);
   } catch (err) {
-    ui.showError(err.message.includes('city') ? 'City not found' : 'Network error');
+    ui.showError(err.message.includes("city") ? "City not found" : "Network error");
   }
 });
+
 // animated placeholder cycling
 const staticTextStart = "Search city (e.g. ";
 const staticTextEnd = ")";
@@ -82,7 +94,7 @@ const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $('#searchInput').placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
 

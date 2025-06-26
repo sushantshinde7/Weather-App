@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Live Weather Forecast</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -14,6 +14,8 @@
   <body>
     <main class="weather-panel">
       <h1 class="app-title">🌤️ WeatherNow</h1>
+
+      <!-- Search -->
       <form id="searchForm" class="search" autocomplete="off">
         <input
           id="searchInput"
@@ -25,28 +27,27 @@
         </button>
       </form>
 
-      <!-- error -->
+      <!-- Error Message -->
       <section class="not-found" hidden>
         <p>City not found</p>
       </section>
 
-      <!-- weather -->
+      <!-- Weather Info -->
       <section class="weather-card" hidden>
-        <img id="weatherImg" src="/assets/cloud.png" alt="Weather icon" />
-
-        <!-- Left: Main temperature -->
-        <div class="weather-main">
+        <div class="weather-left">
+          <img id="weatherImg" src="/assets/cloud.png" alt="Weather icon" />
           <p id="temp" class="temp">
             <i class="fa-solid fa-temperature-three-quarters"></i> <span></span>
           </p>
           <p id="feels" class="feels"></p>
         </div>
 
-        <!-- Right: More details -->
-        <div class="weather-details">
+        <div class="weather-right">
           <p id="desc" class="desc"></p>
           <div class="stats">
-            <div><i class="fa-solid fa-droplet"></i><span id="humidity"></span></div>
+            <div>
+              <i class="fa-solid fa-droplet"></i><span id="humidity"></span>
+            </div>
             <div><i class="fa-solid fa-wind"></i><span id="wind"></span></div>
             <div><i class="fa-solid fa-sun"></i><span id="sunrise"></span></div>
             <div><i class="fa-solid fa-moon"></i><span id="sunset"></span></div>
@@ -54,12 +55,15 @@
         </div>
       </section>
     </main>
+
+    <!-- Footer -->
     <footer class="footer">
       <p>
         Powered by
         <a href="https://openweathermap.org/" target="_blank">OpenWeather</a>
       </p>
     </footer>
+
     <script src="js/app.js" type="module"></script>
   </body>
 </html>
