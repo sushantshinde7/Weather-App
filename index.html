@@ -1,43 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Live Weather Forecast</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <main class="weather-panel">
-    <h1 class="app-title">🌤️ WeatherNow</h1>
-    <form id="searchForm" class="search" autocomplete="off">
-      <input id="searchInput"
-             aria-label="City name"
-             placeholder="Search city (e.g. Mumbai)"/>
-      <button aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
+  <head>
+    <meta charset="utf-8" />
+    <title>Live Weather Forecast</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="weather-panel">
+      <h1 class="app-title">🌤️ WeatherNow</h1>
+      <form id="searchForm" class="search" autocomplete="off">
+        <input
+          id="searchInput"
+          aria-label="City name"
+          placeholder="Search city (e.g. Mumbai)"
+        />
+        <button aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
 
-    <!-- error -->
-    <section class="not-found" hidden>
-      <p>City not found</p>
-    </section>
+      <!-- error -->
+      <section class="not-found" hidden>
+        <p>City not found</p>
+      </section>
 
-    <!-- weather -->
-  <section class="weather-card" hidden>
-    <img id="weatherImg" src="/assets/cloud.png" alt="Weather icon">
-    <p id="temp" class="temp"><i class="fa-solid fa-temperature-three-quarters"></i> <span></span></p>
-    <p id="desc" class="desc"></p>
-    <div class="stats">
-      <div><i class="fa-solid fa-droplet"></i><span id="humidity"></span></div>
-      <div><i class="fa-solid fa-wind"></i><span id="wind"></span></div>
-    </div>
-  </section>
-  </main>
-  <footer class="footer">
-  <p>Powered by <a href="https://openweathermap.org/" target="_blank">OpenWeather</a></p>
-  </footer>
-  <script src="js/app.js" type="module"></script>
-</body>
+      <!-- weather -->
+      <section class="weather-card" hidden>
+        <img id="weatherImg" src="/assets/cloud.png" alt="Weather icon" />
+
+        <!-- Left: Main temperature -->
+        <div class="weather-main">
+          <p id="temp" class="temp">
+            <i class="fa-solid fa-temperature-three-quarters"></i> <span></span>
+          </p>
+          <p id="feels" class="feels"></p>
+        </div>
+
+        <!-- Right: More details -->
+        <div class="weather-details">
+          <p id="desc" class="desc"></p>
+          <div class="stats">
+            <div><i class="fa-solid fa-droplet"></i><span id="humidity"></span></div>
+            <div><i class="fa-solid fa-wind"></i><span id="wind"></span></div>
+            <div><i class="fa-solid fa-sun"></i><span id="sunrise"></span></div>
+            <div><i class="fa-solid fa-moon"></i><span id="sunset"></span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p>
+        Powered by
+        <a href="https://openweathermap.org/" target="_blank">OpenWeather</a>
+      </p>
+    </footer>
+    <script src="js/app.js" type="module"></script>
+  </body>
 </html>

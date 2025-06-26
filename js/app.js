@@ -5,35 +5,46 @@ const BASE = 'https://api.openweathermap.org/data/2.5/weather';
 const $ = sel => document.querySelector(sel);  // selector helper
 
 const ui = {
-  card: $('.weather-card'),
-  notFound: $('.not-found'),
-  temp: $('#temp'),
-  desc: $('#desc'),
-  humidity: $('#humidity'),
-  wind: $('#wind'),
-  img: $('#weatherImg'),
+  card: $(".weather-card"),
+  notFound: $(".not-found"),
+  temp: $("#temp"),
+  desc: $("#desc"),
+  humidity: $("#humidity"),
+  wind: $("#wind"),
+  img: $("#weatherImg"),
 
-  showError(msg = 'City not found') {
+  showError(msg = "City not found") {
     this.card.hidden = true;
     this.notFound.hidden = false;
-    this.notFound.querySelector('p').textContent = msg;
+    this.notFound.querySelector("p").textContent = msg;
   },
 
-  showWeather({ main, weather, wind }) {
+  showWeather({ main, weather, wind, sys }) {
     this.notFound.hidden = true;
     this.card.hidden = false;
 
     // Re-trigger fade-in animation
-    this.card.classList.remove('fade');
-    void this.card.offsetWidth;  // force reflow
-    this.card.classList.add('fade');
+    this.card.classList.remove("fade");
+    void this.card.offsetWidth;
+    this.card.classList.add("fade");
 
     // Fill UI
-    this.temp.querySelector('span').textContent = `${Math.round(main.temp)}°C`;
+    this.temp.querySelector("span").textContent = `${Math.round(main.temp)}°C`;
+    $("#feels").textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
     this.humidity.textContent = `${main.humidity}%`;
     this.wind.textContent = `${(wind.speed * 3.6).toFixed(1)} km/h`;
-    this.img.src = `/assets/${iconMap[weather[0].main] || 'cloud'}.png`;
+
+    const convertTime = (ts) =>
+      new Date(ts * 1000).toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+    $("#sunrise").textContent = `Sunrise: ${convertTime(sys.sunrise)}`;
+    $("#sunset").textContent = `Sunset: ${convertTime(sys.sunset)}`;
+
+    this.img.src = `/assets/${iconMap[weather[0].main] || "cloud"}.png`;
   },
 };
 
