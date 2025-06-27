@@ -1,4 +1,3 @@
-// js/app.js
 const api_key = "c6f566b1e8d04391711053c7d4144be3"; // <-- secure in env in real apps
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -9,7 +8,7 @@ const ui = {
   notFound: $(".not-found"),
   img: $("#weatherImg"),
 
-  temp: $("#temp"),
+  temp: $("#tempValue"),
   feels: $("#feels"),
   desc: $("#desc"),
   humidity: $("#humidity"),
@@ -33,7 +32,7 @@ const ui = {
     this.card.classList.add("fade");
 
     // Fill values
-    this.temp.querySelector("span").textContent = `${Math.round(main.temp)}°C`;
+    this.temp.textContent = `${Math.round(main.temp)}°C`;
     this.feels.textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
     this.humidity.textContent = `${main.humidity}%`;
@@ -45,11 +44,13 @@ const ui = {
         minute: "2-digit",
       });
 
-    this.sunrise.textContent = `Sunrise: ${convertTime(sys.sunrise)}`;
-    this.sunset.textContent = `Sunset: ${convertTime(sys.sunset)}`;
+    this.sunrise.textContent = ` ${convertTime(sys.sunrise)}`;
+    this.sunset.textContent = ` ${convertTime(sys.sunset)}`;
 
     const iconKey = weather[0].main;
-    this.img.src = `/assets/${iconMap[iconKey] || "cloud"}.png`;
+    const iconFile = `/assets/${iconMap[iconKey] || "cloud"}.png`;
+    ui.weatherIcon = $("#weatherIcon");
+    ui.weatherIcon.innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
   },
 };
 
@@ -68,8 +69,12 @@ const iconMap = {
 };
 
 async function fetchWeather(city) {
-  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
+  const url = `${BASE}?q=${encodeURIComponent(
+    city
+  )}&units=metric&appid=${api_key}`;
+  console.log("Fetching:", url);
   const res = await fetch(url);
+  console.log("Status Code:", res.status);
   if (!res.ok) throw new Error((await res.json()).message);
   return res.json();
 }
@@ -83,7 +88,9 @@ $("#searchForm").addEventListener("submit", async (e) => {
     const data = await fetchWeather(city);
     ui.showWeather(data);
   } catch (err) {
-    ui.showError(err.message.includes("city") ? "City not found" : "Network error");
+    ui.showError(
+      err.message.includes("city") ? "City not found" : "Network error"
+    );
   }
 });
 
@@ -94,10 +101,8 @@ const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $(
+    "#searchInput"
+  ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
-
-
-
-

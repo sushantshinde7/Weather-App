@@ -35,19 +35,19 @@
       <!-- Weather Info -->
       <section class="weather-card" hidden>
         <div class="weather-left">
-          <img id="weatherImg" src="/assets/cloud.png" alt="Weather icon" />
-          <p id="temp" class="temp">
-            <i class="fa-solid fa-temperature-three-quarters"></i> <span></span>
-          </p>
-          <p id="feels" class="feels"></p>
+          <div id="weatherIcon" class="weather-icon">
+            <!-- SVG Icon goes here -->
+          </div>
+          <div class="temperature">
+            <span id="tempValue">25°C</span>
+            <p id="feels">Feels like 26°C</p>
+          </div>
         </div>
 
         <div class="weather-right">
-          <p id="desc" class="desc"></p>
+          <p id="desc" class="desc">Overcast Clouds</p>
           <div class="stats">
-            <div>
-              <i class="fa-solid fa-droplet"></i><span id="humidity"></span>
-            </div>
+            <div> <i class="fa-solid fa-droplet"></i><span id="humidity"></span></div>
             <div><i class="fa-solid fa-wind"></i><span id="wind"></span></div>
             <div><i class="fa-solid fa-sun"></i><span id="sunrise"></span></div>
             <div><i class="fa-solid fa-moon"></i><span id="sunset"></span></div>
