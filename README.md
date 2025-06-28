@@ -1,6 +1,5 @@
-# 🌦️ Weather App
-
-A clean and responsive web application that provides real-time weather updates based on city search. It leverages the OpenWeather API to display key weather metrics such as temperature, humidity, and wind speed, along with dynamic weather icons.
+🌤️ WeatherNow
+A sleek and responsive web application that provides real-time weather updates based on city name search. Built with HTML, CSS, and JavaScript, it uses the OpenWeather API to display live weather conditions, including temperature, humidity, wind speed, sunrise, sunset, and weather descriptions with icons.
 
 ## 🚀 Live Demo
 🔗 [Weather App](https://sushantshinde7.github.io/Weather-App/)
@@ -56,4 +55,5 @@ Open a Pull Request.
 ⭐ If you like this project, consider giving it a star on GitHub! ⭐
 
 
-THANK YOU.
+🙏 Thank You
+Made with ❤️ by Sushant Shinde
