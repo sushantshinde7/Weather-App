@@ -3,7 +3,7 @@
   --panel-bg: #fff;
   --accent: #e6f5fb;
   --radius: 12px;
-  --icon-color: #0077b6;
+  --icon-color: #038cd6;
   --text-dark: #333;
   --text-muted: #555;
 }
@@ -97,8 +97,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 2rem;
-  padding: 1.5rem 1rem ;
+  gap: 5rem;
+  padding: 1.5rem 1rem 4rem ;
   border-radius: var(--radius);
   background: #f9f9f9;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
@@ -112,7 +112,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  padding-left: 1rem;
+  padding-left: 0;
   border: 1px solid #000;
 }
 
@@ -136,60 +136,67 @@ body {
 }
 
 #feels {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
-/* === Right Panel === */
-/* === Right Panel === */
 .weather-right {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  justify-content: flex-start;
-  font-size: 0.85rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
   color: var(--text-dark);
-  border: 1px solid #1f1f1f;
-  padding: 0.5rem;
-  gap: 0.4rem;
-  min-width: 180px;
 }
 
+/* Description heading */
 #desc {
-  font-size: 1.25rem;
-  font-weight: 500;
-  text-transform: capitalize;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.12rem;
+  word-spacing: 4px;
   color: var(--text-muted);
-  margin-bottom: 0.4rem;
-  width: 100%;;
+  margin-bottom: 0.6rem;
+  width: 100%;
+  text-align: right;
 }
 
-/* === Stats === */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, auto); /* 2 items per row */
+/* Weather details container */
+.weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 270px; /* same width as desc */
+}
+
+/* Each row in stats */
+.stat-row {
+  display: flex;
   justify-content: space-between;
-  row-gap: 0.5rem;
-  width: 100%;;
+  gap: 0.6rem;
 }
 
-.stats div {
+/* Individual stat item */
+.stat-row div {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.83rem;
+  flex: 1;
 }
 
-.stats i {
+.stat-row i {
   color: var(--icon-color);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-.stats span {
+.stat-row span {
   font-weight: 500;
 }
+
+
 
 /* === Footer === */
 .footer {
