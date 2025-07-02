@@ -1,7 +1,7 @@
-const api_key = "c6f566b1e8d04391711053c7d4144be3"; // <-- secure in env in real apps
+const api_key = "c6f566b1e8d04391711053c7d4144be3"; // <-- Secure this in env for real apps
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
-const $ = (sel) => document.querySelector(sel); // short selector helper
+const $ = (sel) => document.querySelector(sel); // short selector
 
 const ui = {
   card: $(".weather-card"),
@@ -16,13 +16,20 @@ const ui = {
   sunrise: $("#sunrise"),
   sunset: $("#sunset"),
 
+  minTemp: $("#min-temp"),
+  maxTemp: $("#max-temp"),
+  clouds: $("#clouds"),
+  visibility: $("#visibility"),
+
   showError(msg = "City not found") {
     this.card.hidden = true;
     this.notFound.hidden = false;
     this.notFound.querySelector("p").textContent = msg;
   },
 
-  showWeather({ main, weather, wind, sys }) {
+  showWeather(data) {
+    const { main, weather, wind, sys, clouds, visibility } = data;
+
     this.notFound.hidden = true;
     this.card.hidden = false;
 
@@ -35,26 +42,34 @@ const ui = {
     this.temp.textContent = `${Math.round(main.temp)}°C`;
     this.feels.textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
+
+    this.minTemp.textContent = `${Math.round(main.temp_min)}°C`;
+    this.maxTemp.textContent = `${Math.round(main.temp_max)}°C`;
+
     this.humidity.textContent = `${main.humidity}%`;
     this.wind.textContent = `${(wind.speed * 3.6).toFixed(1)} km/h`;
+
+    this.clouds.textContent = `${clouds?.all ?? 0}%`;
+    this.visibility.textContent = `${(visibility / 1000).toFixed(1)} km`;
 
     const convertTime = (ts) =>
       new Date(ts * 1000).toLocaleTimeString("en-IN", {
         hour: "2-digit",
         minute: "2-digit",
+        hour12: true,
       });
 
-    this.sunrise.textContent = ` ${convertTime(sys.sunrise)}`;
-    this.sunset.textContent = ` ${convertTime(sys.sunset)}`;
+    this.sunrise.textContent = convertTime(sys.sunrise);
+    this.sunset.textContent = convertTime(sys.sunset);
 
+    // Icon
     const iconKey = weather[0].main;
     const iconFile = `/assets/${iconMap[iconKey] || "cloud"}.png`;
-    ui.weatherIcon = $("#weatherIcon");
-    ui.weatherIcon.innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
+    $("#weatherIcon").innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
   },
 };
 
-// Basic weather-to-icon mapping
+// Weather-to-icon mapping
 const iconMap = {
   Clear: "clear",
   Rain: "rain",
@@ -69,13 +84,15 @@ const iconMap = {
 };
 
 async function fetchWeather(city) {
-  const url = `${BASE}?q=${encodeURIComponent(
-    city
-  )}&units=metric&appid=${api_key}`;
+  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
   console.log("Fetching:", url);
+
   const res = await fetch(url);
-  console.log("Status Code:", res.status);
-  if (!res.ok) throw new Error((await res.json()).message);
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+
   return res.json();
 }
 
@@ -86,23 +103,23 @@ $("#searchForm").addEventListener("submit", async (e) => {
 
   try {
     const data = await fetchWeather(city);
+    console.log("Weather data:", data); // debug log
     ui.showWeather(data);
   } catch (err) {
+    console.error("Fetch error:", err);
     ui.showError(
-      err.message.includes("city") ? "City not found" : "Network error"
+      err.message.toLowerCase().includes("city") ? "City not found" : "Network error"
     );
   }
 });
 
-// animated placeholder cycling
+// Rotating placeholder animation
 const staticTextStart = "Search city (e.g. ";
 const staticTextEnd = ")";
 const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $(
-    "#searchInput"
-  ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
