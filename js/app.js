@@ -64,7 +64,7 @@ const ui = {
 
     // Icon
     const iconKey = weather[0].main;
-    const iconFile = `/assets/${iconMap[iconKey] || "cloud"}.png`;
+    const iconFile = `/assets/${iconMap[iconKey] || "cloud".png`;
     $("#weatherIcon").innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
   },
 };
