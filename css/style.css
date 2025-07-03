@@ -44,6 +44,68 @@ body {
   transform: translateY(-1px);         /* Soft lift effect */
 }
 
+/* === offline-banner=== */
+.offline-banner {
+  position: relative;                      /* ⬅️ Required for absolute positioning inside */
+  background-color: #fdf2f2;
+  color: #a94442;
+  text-align: left;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-height: 1.5rem;
+
+  border: 1px solid #f5a4ac;
+  border-radius: 0.5rem;
+  margin: 0.8rem auto;
+  max-width: 600px;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+
+.hidden {
+  display: none;
+}
+.close-banner {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 17px;
+
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1;
+
+  border: 1px solid #8b1a1a;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #a94442;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.close-banner:hover {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.close-banner:hover {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
+
+
 
 /* === Panel === */
 .weather-panel {
@@ -74,9 +136,8 @@ body {
   color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-  box-shadow:
-    inset 1px 1px 1.5px rgba(255, 255, 255, 0.3),
-    0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 1px 1px 1.5px rgba(255, 255, 255, 0.3),
+              0 2px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
 

@@ -65,7 +65,9 @@ const ui = {
     // Icon
     const iconKey = weather[0].main;
     const iconFile = `assets/${iconMap[iconKey] || "cloud"}.png`;
-    $("#weatherIcon").innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
+    $(
+      "#weatherIcon"
+    ).innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
   },
 };
 
@@ -84,7 +86,9 @@ const iconMap = {
 };
 
 async function fetchWeather(city) {
-  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
+  const url = `${BASE}?q=${encodeURIComponent(
+    city
+  )}&units=metric&appid=${api_key}`;
   console.log("Fetching:", url);
 
   const res = await fetch(url);
@@ -113,9 +117,14 @@ $("#searchForm").addEventListener("submit", async (e) => {
 
   } catch (err) {
     console.error("Fetch error:", err);
-    ui.showError(
-      err.message.toLowerCase().includes("city") ? "City not found" : "Network error"
-    );
+
+    if (!navigator.onLine) {
+      ui.showError("You're offline. Please check your internet connection.");
+    } else if (err.message.toLowerCase().includes("city")) {
+      ui.showError("City not found");
+    } else {
+      ui.showError("Something went wrong. Please try again.");
+    }
   }
 });
 
@@ -141,7 +150,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-
 // Rotating placeholder animation
 const staticTextStart = "Search city (e.g. ";
 const staticTextEnd = ")";
@@ -149,7 +157,9 @@ const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $(
+    "#searchInput"
+  ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
 // ✅ Soft Reset on App Title Click (add this at very end of app.js)
@@ -165,4 +175,24 @@ $(".app-title").addEventListener("click", () => {
 
   // Optionally focus input for faster typing
   $("#searchInput").focus();
+});
+function updateNetworkBanner() {
+  const banner = $("#offlineBanner");
+  if (!navigator.onLine) {
+    banner.classList.remove("hidden");
+  } else {
+    banner.classList.add("hidden");
+  }
+}
+
+// Initial check on page load
+updateNetworkBanner();
+
+// Live listen for connectivity changes
+window.addEventListener("online", updateNetworkBanner);
+window.addEventListener("offline", updateNetworkBanner);
+
+// ✅ Dismiss banner on close (×) click
+$(".close-banner")?.addEventListener("click", () => {
+  $("#offlineBanner").classList.add("hidden");
 });
