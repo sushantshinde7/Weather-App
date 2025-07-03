@@ -33,7 +33,15 @@ body {
   margin-bottom: 1.5rem;
   color: #1a1a1a;
   text-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.13rem;
+  cursor: pointer;               /* ⬅️ Makes it look clickable */
+  transition: color 0.3s ease, letter-spacing 0.3s ease, transform 0.3s ease;  /* ⬅️ Smooth hover effect */
+}
+
+.app-title:hover {
+  color: #222;                          /* Just a bit deeper */
+  letter-spacing: 0.15rem;             /* Slight expansion */
+  transform: translateY(-1px);         /* Soft lift effect */
 }
 
 

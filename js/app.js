@@ -103,8 +103,14 @@ $("#searchForm").addEventListener("submit", async (e) => {
 
   try {
     const data = await fetchWeather(city);
-    console.log("Weather data:", data); // debug log
+    console.log("Weather data:", data);
+
     ui.showWeather(data);
+
+    // ✅ Store in localStorage
+    localStorage.setItem("lastCity", city);
+    localStorage.setItem("lastWeatherData", JSON.stringify(data));
+
   } catch (err) {
     console.error("Fetch error:", err);
     ui.showError(
@@ -112,6 +118,29 @@ $("#searchForm").addEventListener("submit", async (e) => {
     );
   }
 });
+
+// 🔁 On page load: Check if saved data exists
+window.addEventListener("DOMContentLoaded", async () => {
+  const savedData = localStorage.getItem("lastWeatherData");
+  const lastCity = localStorage.getItem("lastCity");
+
+  // ✅ Refill the input box with the last searched city
+  if (lastCity) {
+    $("#searchInput").value = lastCity;
+  }
+
+  // ✅ Show weather from saved data
+  if (savedData) {
+    try {
+      const parsedData = JSON.parse(savedData);
+      ui.showWeather(parsedData);
+    } catch (err) {
+      console.error("Invalid saved weather data:", err);
+      localStorage.removeItem("lastWeatherData");
+    }
+  }
+});
+
 
 // Rotating placeholder animation
 const staticTextStart = "Search city (e.g. ";
@@ -123,3 +152,17 @@ setInterval(() => {
   $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
+// ✅ Soft Reset on App Title Click (add this at very end of app.js)
+$(".app-title").addEventListener("click", () => {
+  // Hide weather panel
+  ui.card.hidden = true;
+
+  // Hide error message if visible
+  ui.notFound.hidden = true;
+
+  // Clear the search input
+  $("#searchInput").value = "";
+
+  // Optionally focus input for faster typing
+  $("#searchInput").focus();
+});
