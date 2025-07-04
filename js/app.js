@@ -69,6 +69,31 @@ const ui = {
       "#weatherIcon"
     ).innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
   },
+
+  showAQI(aqi) {
+    const levels = {
+      1: { label: "Good", class: "aqi-good" },
+      2: { label: "Satisfactory", class: "aqi-satisfactory" },
+      3: { label: "Moderate", class: "aqi-moderate" },
+      4: { label: "Poor", class: "aqi-poor" },
+      5: { label: "Very Poor", class: "aqi-very-poor" },
+      6: { label: "Severe", class: "aqi-severe" },
+    };
+
+    const labelSpan = $("#aqiLabel");
+    if (!aqi || !levels[aqi]) {
+      labelSpan.innerHTML = "--";
+      return;
+    }
+
+    const { label, class: className } = levels[aqi];
+
+    labelSpan.innerHTML = `
+    <span>${label}</span>
+    <span class="aqi-badge ${className}" title="${label}"></span>
+    <span class="aqi-level">(${aqi})</span>
+  `;
+  },
 };
 
 // Weather-to-icon mapping
@@ -100,6 +125,14 @@ async function fetchWeather(city) {
   return res.json();
 }
 
+async function fetchAQI(lat, lon) {
+  const url = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${api_key}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch AQI");
+  const data = await res.json();
+  return data.list[0].main.aqi;
+}
+
 $("#searchForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const city = $("#searchInput").value.trim();
@@ -115,6 +148,10 @@ $("#searchForm").addEventListener("submit", async (e) => {
     localStorage.setItem("lastCity", city);
     localStorage.setItem("lastWeatherData", JSON.stringify(data));
 
+    // ✅ AQI
+    const { lat, lon } = data.coord;
+    const aqi = await fetchAQI(lat, lon);
+    ui.showAQI(aqi);
   } catch (err) {
     console.error("Fetch error:", err);
 
@@ -124,7 +161,12 @@ $("#searchForm").addEventListener("submit", async (e) => {
       ui.showError("City not found");
     } else {
       ui.showError("Something went wrong. Please try again.");
+      $("#aqiLabel").innerHTML = "--";
     }
+
+    // Clear AQI on failure
+    ui.aqiValue.textContent = "--";
+    ui.aqiValue.className = "";
   }
 });
 
@@ -143,9 +185,14 @@ window.addEventListener("DOMContentLoaded", async () => {
     try {
       const parsedData = JSON.parse(savedData);
       ui.showWeather(parsedData);
+
+      const { lat, lon } = parsedData.coord;
+      const aqi = await fetchAQI(lat, lon);
+      ui.showAQI(aqi);
     } catch (err) {
-      console.error("Invalid saved weather data:", err);
+      console.error("Invalid saved weather data or AQI:", err);
       localStorage.removeItem("lastWeatherData");
+      $("#aqiLabel").innerHTML = "--";
     }
   }
 });
@@ -162,20 +209,17 @@ setInterval(() => {
   ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
-// ✅ Soft Reset on App Title Click (add this at very end of app.js)
+
+// ✅ Soft Reset on App Title Click
 $(".app-title").addEventListener("click", () => {
-  // Hide weather panel
   ui.card.hidden = true;
-
-  // Hide error message if visible
   ui.notFound.hidden = true;
-
-  // Clear the search input
   $("#searchInput").value = "";
-
   // Optionally focus input for faster typing
   $("#searchInput").focus();
 });
+
+// ✅ Offline Banner
 function updateNetworkBanner() {
   const banner = $("#offlineBanner");
   if (!navigator.onLine) {

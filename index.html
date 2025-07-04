@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
+
   <body>
     <main class="weather-panel">
       <h1 class="app-title">🌤️ WeatherNow</h1>
@@ -101,6 +102,16 @@
                 <i class="fa-solid fa-eye"></i>
                 <span class="label">Vis</span>
                 <span id="visibility"></span>
+              </div>
+            </div>
+
+            <div class="stat-row">
+              <div class="stat-item aqi-item">
+                <i class="fa-solid fa-mask-ventilator"></i>
+                <span class="label">AQI</span>
+                <span id="aqiLabel" class="aqi-label">
+                  <!-- JS will fill: label ● (level) -->
+                </span>
               </div>
             </div>
           </div>

@@ -24,7 +24,6 @@ body {
   padding: 1rem;
 }
 
-
 /* === Header === */
 .app-title {
   text-align: center;
@@ -37,7 +36,6 @@ body {
   cursor: pointer;               /* ⬅️ Makes it look clickable */
   transition: color 0.3s ease, letter-spacing 0.3s ease, transform 0.3s ease;  /* ⬅️ Smooth hover effect */
 }
-
 .app-title:hover {
   color: #222;                          /* Just a bit deeper */
   letter-spacing: 0.15rem;             /* Slight expansion */
@@ -54,17 +52,13 @@ body {
   font-size: 0.9rem;
   font-weight: 500;
   min-height: 1.5rem;
-
   border: 1px solid #f5a4ac;
   border-radius: 0.5rem;
   margin: 0.8rem auto;
   max-width: 600px;
-
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
-
-
 .hidden {
   display: none;
 }
@@ -72,40 +66,25 @@ body {
   position: absolute;
   top: 2px;
   right: 8px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 18px;
   height: 17px;
-
   font-size: 1rem;
   font-weight: bold;
   line-height: 1;
-
   border: 1px solid #8b1a1a;
   border-radius: 50%;
   background-color: #fff;
   color: #a94442;
   cursor: pointer;
-
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-
 .close-banner:hover {
   background-color: #f8d7da;
   color: #721c24;
 }
-
-.close-banner:hover {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-
-
-
 
 /* === Panel === */
 .weather-panel {
@@ -126,7 +105,6 @@ body {
   gap: 0.6rem;
   margin-bottom: 1.5rem;
 }
-
 .search input {
   flex: 1;
   padding: 0.75rem 1rem;
@@ -140,7 +118,6 @@ body {
               0 2px 6px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
-
 .search input:focus {
   background: rgba(240, 250, 255, 0.55);
   border: 1px solid #a4ddff;
@@ -149,14 +126,12 @@ body {
     0 2px 6px rgba(0, 0, 0, 0.08);
   outline: none;
 }
-
 .search input::placeholder {
   color: #555;
   opacity: 0.7;
   font-style: italic;
   font-size: 0.9rem;
 }
-
 
 .search button {
   width: 3rem;
@@ -169,13 +144,11 @@ body {
   transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
   backdrop-filter: blur(4px);
 }
-
 .search button:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 /* === States === */
 .not-found[hidden],
@@ -191,9 +164,7 @@ body {
   gap: 8rem;
   padding: 1rem 0.5rem;
   border-radius: var(--radius);
-
-  /* ✅ Make it visually blend into the weather-panel */
-  background: transparent;
+  background: transparent; /* ✅ Make it visually blend into the weather-panel */
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -201,8 +172,6 @@ body {
   animation: fadeIn 0.4s ease-in-out;
   transition: all 0.3s ease;
 }
-
-
 
 /* === Left Panel === */
 .weather-left {
@@ -221,7 +190,6 @@ body {
   height: 100px;
   margin-bottom: 0.5rem;
 }
-
 #weatherIcon img {
   width: 100px;
   height: 100px;
@@ -239,13 +207,11 @@ body {
   align-items: center;
   
 }
-
 #tempValue {
   font-size: 2.8rem;
   font-weight: 700;
   color: var(--text-dark);
 }
-
 #feels {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -264,7 +230,6 @@ body {
 }
 
 /* Description heading */
-/* Description heading - matches stat block width */
 #desc {
   font-size: 1.2rem;
   font-weight: 600;
@@ -295,7 +260,6 @@ body {
   justify-content: space-between;
   gap: 0.4rem;
 }
-
 .stat-item {
   display: flex;
   align-items: center;
@@ -311,30 +275,71 @@ body {
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   min-height: 1.8rem;
 }
-
 .stat-item:hover {
   transform: translateY(-2px) scale(1.03);
   background-color: rgba(255, 255, 255, 0.28);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
-
 .stat-item i {
   color: var(--icon-color);
   font-size: 0.9rem;
   flex-shrink: 0;
 }
-
 .stat-item .label {
   font-weight: 500;
   color: var(--text-muted);
   white-space: nowrap;
 }
-
 .stat-item span:last-child {
   font-weight: 600;
   color: var(--text-dark);
   white-space: nowrap;
 }
+/* AQI layout inside stat-item */
+.aqi-item {
+  flex: 1 1 100%; /* Let it take a full row initially */
+  max-width: 250px; /* limit its expansion */
+}
+
+@media (min-width: 500px) {
+  .aqi-item {
+    flex: 1 1 48%; /* Make it behave like other stat-items */
+  }
+}
+
+/* AQI label section */
+.aqi-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  padding-left: 0.3rem;
+  color: var(--text-dark);
+}
+
+/* Colored circular dot */
+.aqi-badge {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+/* Numeric AQI Level */
+.aqi-level {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* AQI levels – match color scale */
+.aqi-good         { background-color: #2ecc71; }  /* green */
+.aqi-satisfactory { background-color: #27ae60; }  /* dark green */
+.aqi-moderate     { background-color: #f1c40f; }  /* yellow */
+.aqi-poor         { background-color: #e67e22; }  /* orange */
+.aqi-very-poor    { background-color: #e74c3c; }  /* red */
+
 
 /* === Footer === */
 .footer {
@@ -345,19 +350,16 @@ body {
   padding-bottom: 1rem;
   font-style: italic;
 }
-
 .footer a {
   color: #444;
   text-decoration: underline dotted;
   transition: color 0.3s ease;
 }
-
 .footer a:hover {
   color: #000;
 }
 
 /* === Responsive === */
-
 @media (max-width: 640px) {
   .weather-card {
     flex-direction: row;
@@ -365,32 +367,27 @@ body {
     gap: 2rem 1rem;
     justify-content: space-between;
   }
-
   .weather-right {
     flex: 1 1 300px;
     align-items: center;
     text-align: center;
     padding: 0;
   }
-
   .weather-details {
     max-width: 100%;
     width: 100%;
   }
-
   .stat-row {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
   }
-
   .stat-item {
     flex: 1 1 calc(50% - 0.5rem);
     min-width: 120px;
     max-width: 180px;
   }
-
   #desc {
     max-width: 100%;
   }
@@ -402,18 +399,15 @@ body {
     flex-direction: row;
     gap: 0.6rem;
   }
-
   .search input {
     flex: 1;
     font-size: 0.95rem;
   }
-
   .search button {
     width: 2.8rem;
     aspect-ratio: 1;
     border-radius: 50%;
   }
-
   .weather-panel {
     padding: 1.2rem;
   }
@@ -423,40 +417,33 @@ body {
     text-align: center;
     gap: 1.5rem;
   }
-
   .weather-left,
   .weather-right {
     align-items: center;
     text-align: center;
   }
-
   #tempValue {
     font-size: 2.3rem;
   }
-
   #desc {
     font-size: 1.1rem;
     letter-spacing: 0.15rem;
     max-width: 90%;
   }
-
   .weather-details {
     max-width: 100%;
   }
-
   .stat-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
   }
-
   .stat-item {
     flex: 1 1 48%;
     min-width: 120px;
     max-width: 160px;
   }
-
   .footer {
     font-size: 0.85rem;
     padding-top: 1rem;
@@ -467,21 +454,19 @@ body {
   .weather-details {
     max-width: 100%;
   }
-
   .stat-row {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-
   .stat-item {
     flex: 1 1 48%;
   }
-
   #desc {
     font-size: 1rem;
     letter-spacing: 0.15rem;
   }
 }
+
 @media (max-width: 380px) {
   .stat-item {
     flex: 1 1 100%;
