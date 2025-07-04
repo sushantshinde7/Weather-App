@@ -1,7 +1,7 @@
-const api_key = "c6f566b1e8d04391711053c7d4144be3"; // <-- Secure this in env for real apps
+const api_key = "c6f566b1e8d04391711053c7d4144be3";
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
-const $ = (sel) => document.querySelector(sel); // short selector
+const $ = (sel) => document.querySelector(sel);
 
 const ui = {
   card: $(".weather-card"),
@@ -21,6 +21,8 @@ const ui = {
   clouds: $("#clouds"),
   visibility: $("#visibility"),
 
+  lastUpdated: $("#lastUpdated"), // ✅ added this
+
   showError(msg = "City not found") {
     this.card.hidden = true;
     this.notFound.hidden = false;
@@ -33,12 +35,10 @@ const ui = {
     this.notFound.hidden = true;
     this.card.hidden = false;
 
-    // Re-trigger animation
     this.card.classList.remove("fade");
     void this.card.offsetWidth;
     this.card.classList.add("fade");
 
-    // Fill values
     this.temp.textContent = `${Math.round(main.temp)}°C`;
     this.feels.textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
@@ -62,12 +62,16 @@ const ui = {
     this.sunrise.textContent = convertTime(sys.sunrise);
     this.sunset.textContent = convertTime(sys.sunset);
 
-    // Icon
     const iconKey = weather[0].main;
     const iconFile = `assets/${iconMap[iconKey] || "cloud"}.png`;
-    $(
-      "#weatherIcon"
-    ).innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
+    $("#weatherIcon").innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
+
+    // ✅ Last updated time
+    const now = new Date();
+    this.lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   },
 
   showAQI(aqi) {
@@ -87,16 +91,14 @@ const ui = {
     }
 
     const { label, class: className } = levels[aqi];
-
     labelSpan.innerHTML = `
-    <span>${label}</span>
-    <span class="aqi-badge ${className}" title="${label}"></span>
-    <span class="aqi-level">(${aqi})</span>
-  `;
+      <span>${label}</span>
+      <span class="aqi-badge ${className}" title="${label}"></span>
+      <span class="aqi-level">(${aqi})</span>
+    `;
   },
 };
 
-// Weather-to-icon mapping
 const iconMap = {
   Clear: "clear",
   Rain: "rain",
@@ -111,17 +113,12 @@ const iconMap = {
 };
 
 async function fetchWeather(city) {
-  const url = `${BASE}?q=${encodeURIComponent(
-    city
-  )}&units=metric&appid=${api_key}`;
-  console.log("Fetching:", url);
-
+  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
   const res = await fetch(url);
   if (!res.ok) {
     const error = await res.json();
     throw new Error(error.message);
   }
-
   return res.json();
 }
 
@@ -140,47 +137,33 @@ $("#searchForm").addEventListener("submit", async (e) => {
 
   try {
     const data = await fetchWeather(city);
-    console.log("Weather data:", data);
-
     ui.showWeather(data);
 
-    // ✅ Store in localStorage
     localStorage.setItem("lastCity", city);
     localStorage.setItem("lastWeatherData", JSON.stringify(data));
 
-    // ✅ AQI
     const { lat, lon } = data.coord;
     const aqi = await fetchAQI(lat, lon);
     ui.showAQI(aqi);
   } catch (err) {
     console.error("Fetch error:", err);
-
     if (!navigator.onLine) {
       ui.showError("You're offline. Please check your internet connection.");
     } else if (err.message.toLowerCase().includes("city")) {
       ui.showError("City not found");
     } else {
       ui.showError("Something went wrong. Please try again.");
-      $("#aqiLabel").innerHTML = "--";
     }
-
-    // Clear AQI on failure
-    ui.aqiValue.textContent = "--";
-    ui.aqiValue.className = "";
+    $("#aqiLabel").innerHTML = "--";
   }
 });
 
-// 🔁 On page load: Check if saved data exists
 window.addEventListener("DOMContentLoaded", async () => {
   const savedData = localStorage.getItem("lastWeatherData");
   const lastCity = localStorage.getItem("lastCity");
 
-  // ✅ Refill the input box with the last searched city
-  if (lastCity) {
-    $("#searchInput").value = lastCity;
-  }
+  if (lastCity) $("#searchInput").value = lastCity;
 
-  // ✅ Show weather from saved data
   if (savedData) {
     try {
       const parsedData = JSON.parse(savedData);
@@ -197,29 +180,23 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Rotating placeholder animation
 const staticTextStart = "Search city (e.g. ";
 const staticTextEnd = ")";
 const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $(
-    "#searchInput"
-  ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
 
-// ✅ Soft Reset on App Title Click
 $(".app-title").addEventListener("click", () => {
   ui.card.hidden = true;
   ui.notFound.hidden = true;
   $("#searchInput").value = "";
-  // Optionally focus input for faster typing
   $("#searchInput").focus();
 });
 
-// ✅ Offline Banner
 function updateNetworkBanner() {
   const banner = $("#offlineBanner");
   if (!navigator.onLine) {
@@ -229,14 +206,11 @@ function updateNetworkBanner() {
   }
 }
 
-// Initial check on page load
 updateNetworkBanner();
 
-// Live listen for connectivity changes
 window.addEventListener("online", updateNetworkBanner);
 window.addEventListener("offline", updateNetworkBanner);
 
-// ✅ Dismiss banner on close (×) click
 $(".close-banner")?.addEventListener("click", () => {
   $("#offlineBanner").classList.add("hidden");
 });
