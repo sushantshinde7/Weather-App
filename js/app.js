@@ -2,6 +2,28 @@ const api_key = "c6f566b1e8d04391711053c7d4144be3";
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
 const $ = (sel) => document.querySelector(sel);
+const weatherDescriptions = {
+  "overcast clouds":
+    "‘Overcast clouds’ refer to a sky completely covered by clouds. It usually means dull weather, with very low sunlight and cooler temperatures.",
+  "clear sky":
+    "A ‘clear sky’ means no clouds at all. Expect bright sunshine and no precipitation.",
+  "few clouds":
+    "‘Few clouds’ means mostly sunny with occasional cloud patches.",
+  "scattered clouds":
+    "‘Scattered clouds’ are spread out and cover less than half the sky. It’s typically still bright outside.",
+  "broken clouds":
+    "‘Broken clouds’ cover more than half the sky but allow some sunshine through.",
+  "light rain":
+    "‘Light rain’ refers to a gentle rainfall, often short-lived but can still make the surroundings wet.",
+  "moderate rain":
+    "‘Moderate rain’ is steady and can last a while. It’s more intense than light rain.",
+  "heavy rain":
+    "‘Heavy rain’ is intense and continuous. Be cautious of flooding in low-lying areas.",
+  thunderstorm:
+    "‘Thunderstorms’ include lightning, thunder, and usually heavy rain. Stay indoors if possible.",
+  mist: "‘Mist’ is a thin layer of fog, reducing visibility but not as dense as fog.",
+  // Add more as needed
+};
 
 const ui = {
   card: $(".weather-card"),
@@ -30,6 +52,8 @@ const ui = {
   },
 
   showWeather(data) {
+    // 🔽 Hide popup if it was open from previous search
+    descPopup?.classList.add("hidden");
     const { main, weather, wind, sys, clouds, visibility } = data;
 
     this.notFound.hidden = true;
@@ -42,6 +66,12 @@ const ui = {
     this.temp.textContent = `${Math.round(main.temp)}°C`;
     this.feels.textContent = `Feels like ${Math.round(main.feels_like)}°C`;
     this.desc.textContent = weather[0].description;
+
+    const descText = weather[0].description.toLowerCase();
+    const popupText =
+      weatherDescriptions[descText] ||
+      "No additional information available for this weather condition.";
+    $("#descPopup .popup-text").textContent = popupText;
 
     this.minTemp.textContent = `${Math.round(main.temp_min)}°C`;
     this.maxTemp.textContent = `${Math.round(main.temp_max)}°C`;
@@ -64,14 +94,19 @@ const ui = {
 
     const iconKey = weather[0].main;
     const iconFile = `assets/${iconMap[iconKey] || "cloud"}.png`;
-    $("#weatherIcon").innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
+    $(
+      "#weatherIcon"
+    ).innerHTML = `<img src="${iconFile}" alt="${iconKey} icon" width="100" height="100">`;
 
     // ✅ Last updated time
     const now = new Date();
-    this.lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString("en-IN", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })}`;
+    this.lastUpdated.textContent = `Last updated: ${now.toLocaleTimeString(
+      "en-IN",
+      {
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+    )}`;
   },
 
   showAQI(aqi) {
@@ -113,7 +148,9 @@ const iconMap = {
 };
 
 async function fetchWeather(city) {
-  const url = `${BASE}?q=${encodeURIComponent(city)}&units=metric&appid=${api_key}`;
+  const url = `${BASE}?q=${encodeURIComponent(
+    city
+  )}&units=metric&appid=${api_key}`;
   const res = await fetch(url);
   if (!res.ok) {
     const error = await res.json();
@@ -186,7 +223,9 @@ const placeholders = ["Mumbai", "Pune", "Bengaluru", "Delhi", "Hyderabad"];
 let i = 0;
 
 setInterval(() => {
-  $("#searchInput").placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
+  $(
+    "#searchInput"
+  ).placeholder = `${staticTextStart}${placeholders[i]}${staticTextEnd}`;
   i = (i + 1) % placeholders.length;
 }, 2500);
 
