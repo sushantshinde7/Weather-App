@@ -214,3 +214,22 @@ window.addEventListener("offline", updateNetworkBanner);
 $(".close-banner")?.addEventListener("click", () => {
   $("#offlineBanner").classList.add("hidden");
 });
+// ============ Description Info Popup (ⓘ Icon) ============
+const descIcon = $("#descInfoIcon");
+const descPopup = $("#descPopup");
+const popupClose = descPopup?.querySelector(".popup-close");
+
+descIcon?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  descPopup?.classList.toggle("hidden");
+});
+
+popupClose?.addEventListener("click", () => {
+  descPopup?.classList.add("hidden");
+});
+
+document.addEventListener("click", (e) => {
+  if (!descPopup?.contains(e.target) && e.target !== descIcon) {
+    descPopup?.classList.add("hidden");
+  }
+});

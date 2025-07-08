@@ -50,8 +50,25 @@
         </div>
 
         <div class="weather-right">
-          <p id="desc" class="desc">Overcast Clouds</p>
-          
+          <div class="desc-wrapper">
+            <div class="desc-text-group">
+              <p id="desc" class="desc">--</p>
+              <i
+                id="descInfoIcon"
+                class="fa-solid fa-circle-info desc-info-icon"
+                title="What does this mean?"
+              ></i>
+            </div>
+
+            <div id="descPopup" class="desc-popup hidden">
+              <p class="popup-text">
+                “Overcast clouds” refer to a sky completely covered by clouds.
+                It usually means dull weather, with very low sunlight and cooler
+                temperatures.
+              </p>
+            </div>
+          </div>
+
           <div class="weather-details">
             <div class="stat-row">
               <div class="stat-item">
@@ -109,7 +126,11 @@
               <div class="stat-item aqi-item">
                 <i class="fa-solid fa-mask-ventilator"></i>
                 <span class="label">AQI</span>
-                <span id="aqiLabel" class="aqi-label" aria-label="Air Quality Index">
+                <span
+                  id="aqiLabel"
+                  class="aqi-label"
+                  aria-label="Air Quality Index"
+                >
                   <!-- JS will fill: label ● (level) -->
                 </span>
               </div>
