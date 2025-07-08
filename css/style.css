@@ -13,6 +13,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 body {
@@ -31,38 +32,32 @@ body {
   font-weight: 700;
   margin-bottom: 1.5rem;
   color: #1a1a1a;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   letter-spacing: 0.13rem;
-  cursor: pointer;
-  /* ⬅️ Makes it look clickable */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer; /* Makes it look clickable */
   transition: color 0.3s ease, letter-spacing 0.3s ease, transform 0.3s ease;
-  /* ⬅️ Smooth hover effect */
 }
 
 .app-title:hover {
   color: #222;
-  /* Just a bit deeper */
   letter-spacing: 0.15rem;
-  /* Slight expansion */
   transform: translateY(-1px);
-  /* Soft lift effect */
 }
 
 /* === offline-banner=== */
 .offline-banner {
-  position: relative;
-  /* ⬅️ Required for absolute positioning inside */
+  position: relative; /* Needed for close button */
   background-color: #fdf2f2;
   color: #a94442;
-  text-align: left;
   padding: 0.4rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
+  margin: 0.8rem auto;
   min-height: 1.5rem;
+  max-width: 600px;
   border: 1px solid #f5a4ac;
   border-radius: 0.5rem;
-  margin: 0.8rem auto;
-  max-width: 600px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
 }
@@ -75,11 +70,11 @@ body {
   position: absolute;
   top: 2px;
   right: 8px;
+  width: 18px;
+  height: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 17px;
   font-size: 1rem;
   font-weight: bold;
   line-height: 1;
@@ -102,10 +97,10 @@ body {
   padding: 2rem;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: padding 0.3s ease, background 0.3s ease;
 }
 
@@ -119,24 +114,22 @@ body {
 .search input {
   flex: 1;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  background: rgba(240, 250, 255, 0.4);
-  /* bright bluish white */
-  color: #1a1a1a;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  background: rgba(240, 250, 255, 0.4); /* bright bluish white */
+  color: #1a1a1a;
+  font-size: 1rem;
   box-shadow: inset 1px 1px 1.5px rgba(255, 255, 255, 0.3),
-    0 2px 6px rgba(0, 0, 0, 0.05);
+              0 2px 6px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
 
 .search input:focus {
   background: rgba(240, 250, 255, 0.55);
   border: 1px solid #a4ddff;
-  box-shadow:
-    0 0 0 2px rgba(164, 221, 255, 0.4),
-    0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 0 2px rgba(164, 221, 255, 0.4),
+              0 2px 6px rgba(0, 0, 0, 0.08);
   outline: none;
 }
 
@@ -151,15 +144,13 @@ body {
   width: 3rem;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  /* very subtle white overlay */
+  background: rgba(255, 255, 255, 0.08); /* subtle white */
   border: 0.7px solid rgba(255, 255, 255, 0.61);
-  /* brighter border */
-  box-shadow: 0 4px 12px rgba(171, 255, 248, 0.85);
   color: var(--icon-color);
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--main-glow);
   backdrop-filter: blur(4px);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search button:hover {
@@ -183,11 +174,8 @@ body {
   padding: 1rem 0.5rem;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.08);
-  /* very subtle white overlay */
   border: 0.7px solid rgba(255, 255, 255, 0.61);
-  /* brighter border */
-  box-shadow: 0 4px 12px rgba(171, 255, 248, 0.85);
-
+  box-shadow: var(--main-glow);
   animation: fadeIn 0.4s ease-in-out;
   transition: all 0.3s ease;
 }
@@ -198,8 +186,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto 10px;
-  align-items: center;
-  /* center instead of flex-start */
+  align-items: center; /* center instead of flex-start */
   text-align: center;
   gap: 0.3rem;
   animation: fadeIn 0.6s ease-in-out;
@@ -216,13 +203,9 @@ body {
   height: 100px;
   border-radius: 50%;
   padding: 0;
-  background: rgba(255, 255, 255, 0.3);
-  /* faint background */
-  backdrop-filter: blur(6px);
-  /* match stat items */
-  -webkit-backdrop-filter: blur(6px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  /* soft lift */
+  background: rgba(255, 255, 255, 0.3); /* faint background */
+  /* Removed blur for performance */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* soft lift */
 }
 
 .temperature {
@@ -259,14 +242,13 @@ body {
   margin-top: 10px;
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--text-muted);
-  /* like grey */
+  color: var(--text-muted);  /* like grey */
   text-align: right;
   opacity: 0.8;
   font-style: italic;
 }
 
-/* Description heading */
+/* == Description heading == */
 #desc {
   font-size: 1.2rem;
   font-weight: 600;
@@ -274,12 +256,9 @@ body {
   word-spacing: 4px;
   color: var(--text-dark);
   margin-bottom: 0.6rem;
-  width: 100%;
-  /* full width of the right section */
-  max-width: 270px;
-  /* match weather-details */
-  text-align: center;
-  /* center inside box */
+  width: 100%; /* full width of the right section */
+  max-width: 270px; /* match weather-details */
+  text-align: center; /* center inside box */
   border-bottom: 1.5px solid rgba(0, 0, 0, 0.4);
   padding-bottom: 0.3rem;
   text-transform: capitalize;
@@ -316,7 +295,6 @@ body {
   color: var(--icon-color);
   padding: 0.1rem 0.35rem;
   border-radius: 50%;
-  backdrop-filter: blur(8px);
   transition: transform 0.2s ease;
 }
 
@@ -330,19 +308,14 @@ body {
   bottom: 115%;
   right: 0;
   z-index: 200;
-
-  padding: 0.45rem 0.4rem 0.45rem;
+  padding: 0.45rem 0.4rem;
   width: clamp(100px, 50vw, 260px);
   max-height: fit-content;
-
-  /* 🎨 Soft gradient background (not glassy) */
-  background: linear-gradient(to bottom right, #fefefe, #dddddd); 
+  background: linear-gradient(to bottom right, #fefefe, #dddddd); /* soft gradient */
   color: #111;
-
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -351,7 +324,6 @@ body {
   font-size: 0.82rem;
   line-height: 1.1;
   text-align: left;
-
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -381,6 +353,10 @@ body {
   border-color: #dddddd transparent transparent transparent;
 }
 
+.desc-popup.hidden {
+  display: none;
+}
+
 /* 📱 Responsive */
 @media (max-width: 420px) {
   .desc-popup {
@@ -390,9 +366,6 @@ body {
   }
 }
 
-.desc-popup.hidden {
-  display: none;
-}
 /* Weather details container */
 .weather-details {
   display: flex;
@@ -420,10 +393,9 @@ body {
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  /* toned down */
   flex: 1 1 min(45%, 180px);
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
   min-height: 1.8rem;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .stat-item:hover {
@@ -454,21 +426,17 @@ body {
   white-space: nowrap;
 }
 
-/* AQI layout inside stat-item */
+/* === AQI Styles === */
 .aqi-item {
   flex: 1 1 100%;
-  /* Let it take a full row initially */
   max-width: 250px;
-  /* limit its expansion */
 }
 
 @media (min-width: 500px) {
   .aqi-item {
-    flex: 1 1 48%;
-    /* Make it behave like other stat-items */
+    flex: 1 1 48%;  /* Make it behave like other stat-items */
   }
 }
-
 /* AQI label section */
 .aqi-label {
   display: flex;
@@ -496,39 +464,17 @@ body {
 }
 
 /* AQI levels – match color scale */
-.aqi-good {
-  background-color: #2ecc71;
-}
-
-/* green */
-.aqi-satisfactory {
-  background-color: #27ae60;
-}
-
-/* dark green */
-.aqi-moderate {
-  background-color: #f1c40f;
-}
-
-/* yellow */
-.aqi-poor {
-  background-color: #e67e22;
-}
-
-/* orange */
-.aqi-very-poor {
-  background-color: #e74c3c;
-}
-
-/* red */
-
+.aqi-good { background-color: #2ecc71; }        /* Green */
+.aqi-satisfactory { background-color: #27ae60; } /* Dark green */
+.aqi-moderate { background-color: #f1c40f; }     /* Yellow */
+.aqi-poor { background-color: #e67e22; }         /* Orange */
+.aqi-very-poor { background-color: #e74c3c; }    /* Red */
 
 /* === Footer === */
 .footer {
   margin-top: 2rem;
   font-size: 0.85rem;
-  color: rgba(40, 40, 40, 0.6);
-  /* Higher contrast */
+  color: rgba(40, 40, 40, 0.6);  /* Higher contrast */
   text-align: center;
   padding-bottom: 1rem;
   font-style: italic;
@@ -566,7 +512,7 @@ body {
   }
 
   .stat-row {
-    display: flex;
+    /*display: flex;*/
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
@@ -583,7 +529,7 @@ body {
   }
 }
 
-
+/* max-width: 540px (phones landscape / small phones) */
 @media (max-width: 540px) {
   .search {
     flex-direction: row;
@@ -633,7 +579,7 @@ body {
   }
 
   .stat-row {
-    display: flex;
+    /*display: flex;*/
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
@@ -651,6 +597,7 @@ body {
   }
 }
 
+/* max-width: 400px (phones portrait) */
 @media (max-width: 400px) {
   .weather-details {
     max-width: 100%;
@@ -671,6 +618,7 @@ body {
   }
 }
 
+/* max-width: 380px (extra small devices) */
 @media (max-width: 380px) {
   .stat-item {
     flex: 1 1 100%;
