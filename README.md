@@ -19,7 +19,7 @@ A sleek and responsive web application that provides real-time weather updates b
 ## 🛠️ Tech Stack
 - **Frontend**: HTML, CSS, JavaScript  
 - **API**: OpenWeather API  
-- **Other Tools**: Fetch API  
+- **Other Tools**:Fetch API, LocalStorage, Font Awesome Icons  
 
 ## 🔧 Installation
 Follow these steps to set up the project locally:
@@ -35,10 +35,13 @@ cd weather-app
 Open index.html in your browser.
 
 🌍 API Usage
-This app uses the OpenWeather API to fetch real-time weather data.
-To use it with your own API key:
-Sign up on OpenWeather and get an API key.
-Replace "YOUR_API_KEY" in the JavaScript file with your actual API key.
+This app uses the OpenWeather API.
+To use your own API key:
+1. 🔑 Sign up at [openweathermap.org](https://openweathermap.org)
+2. 🧾 Get your **API key**
+3. 🛠️ In the `app.js` file, replace the value of  
+   ```js
+   const api_key = "YOUR_API_KEY";
 
 🖼️ Screenshots
 ### Home Page  
