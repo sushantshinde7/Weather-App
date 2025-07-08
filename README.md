@@ -3,18 +3,18 @@ A sleek and responsive web application that provides real-time weather updates b
 
 ## 🚀 Live Demo
 🔗 [Weather App](https://sushantshinde7.github.io/Weather-App/)
+### 📌 Features
 
-## 📌 Features
-✅ Search weather by city name
-✅ Displays temperature, humidity, and wind speed
-✅ Dynamic weather icons based on current conditions
-✅ Shows AQI (Air Quality Index) with readable label, level number, and colored dot
-✅ Displays last-updated timestamp below weather stats
-✅ Responsive design for mobile and desktop
-✅ Error handling for invalid city names
-✅ Offline support with dismissible banner
-✅ Soft refresh by clicking heading – retains and reloads last searched city (using localStorage)
-✅ Improved layout, spacing, and visual refinement for consistent UI 
+| ✅ Core Features                           | 💡 Enhanced UX & Styling                     |
+|--------------------------------------------|-----------------------------------------------|
+| 🔍 Search weather by city name             | 🎨 Glassy UI with icon feedback              |
+| 🌡️ Temperature, Humidity, Wind, etc.       | 🕒 Last updated time below stats             |
+| 🌇 Sunrise & Sunset times                  | 🖼️ Dynamic weather icons                     |
+| ☁️ Cloud cover & 👁️ Visibility            | 📶 Offline support with dismissible banner   |
+| 🌫️ Dynamic weather description popup       | 🔠 ARIA labels and accessible markup         |
+| 🌬️ AQI with label, level & color badge     | 💾 Retains last city using `localStorage`    |
+| 🚫 Handles errors and invalid cities       | 🔁 Click title to reset and soft refresh     |
+
 
 ## 🛠️ Tech Stack
 - **Frontend**: HTML, CSS, JavaScript  
