@@ -168,18 +168,61 @@ body {
 /* === Weather Card === */
 .weather-card {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 8rem;
-  padding: 1rem 0.5rem;
+  flex-direction: column; /* stack top + illustration vertically */
+  width: 100%; /* Important to allow SVG to match full width */
+  max-width: clamp(320px, 90vw, 640px);
+  gap: 1.5rem;
+  padding: 1.5rem 1.5rem 0; /* top: 1.5rem, sides: 1.5rem, bottom: 0 */
+  box-sizing: border-box;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.08);
   border: 0.7px solid rgba(255, 255, 255, 0.61);
   box-shadow: var(--main-glow);
   animation: fadeIn 0.4s ease-in-out;
   transition: all 0.3s ease;
+  overflow: visible; /* prevent scrollbars */
+  overflow-x: hidden;
 }
 
+.weather-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 2rem;
+}
+
+/* Your existing .weather-left and .weather-right styles here */
+
+.weather-illustration-container {
+  width: 100%;
+  margin-top: 0.75rem; /* nice spacing from weather content */
+  display: flex;
+  justify-content: center;
+  transform: scaleX(1.2); /* tweak value (1.10–1.15) if needed */
+  transform-origin: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden; /* ensures scaled image doesn't overflow outside container */
+}
+
+.weather-illustration {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0.88;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+
+@media (max-width: 480px) {
+  .weather-illustration {
+    max-width: 300px;
+  }
+}
 /* === Left Panel === */
 .weather-left {
   flex: 1;
@@ -493,16 +536,19 @@ body {
 /* === Responsive === */
 @media (max-width: 640px) {
   .weather-card {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem 1rem;
+    flex-direction: column; /* Keep weather-top and illustration stacked */
+    gap: 1.5rem;
+  }
+  .weather-top {
+    flex-wrap: nowrap; /* Keep them side-by-side */
+    gap: 1rem;
     justify-content: space-between;
   }
 
   .weather-right {
-    flex: 1 1 300px;
-    align-items: center;
-    text-align: center;
+    flex: 1 1 50%;
+    /*align-items: right;
+    text-align: center;*/
     padding: 0;
   }
 
@@ -557,21 +603,26 @@ body {
     text-align: center;
     gap: 1.5rem;
   }
-
-  .weather-left,
+  .weather-top {
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
   .weather-right {
-    align-items: center;
+    align-items: right;
     text-align: center;
   }
-
+  .weather-left {
+    align-items: left;
+    text-align: center;
+  }
   #tempValue {
     font-size: 2.3rem;
   }
 
   #desc {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     letter-spacing: 0.15rem;
-    max-width: 90%;
+    max-width: 100%;
   }
 
   .weather-details {
@@ -580,15 +631,15 @@ body {
 
   .stat-row {
     /*display: flex;*/
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 0.5rem;
   }
 
   .stat-item {
     flex: 1 1 48%;
-    min-width: 120px;
-    max-width: 160px;
+    min-width: 115px;
+    max-width: 150px;
   }
 
   .footer {
@@ -599,6 +650,11 @@ body {
 
 /* max-width: 400px (phones portrait) */
 @media (max-width: 400px) {
+  .weather-left,
+  .weather-right {
+    flex: 1 1 50%;
+    max-width: 50%;
+  }
   .weather-details {
     max-width: 100%;
   }

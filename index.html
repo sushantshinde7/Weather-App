@@ -5,8 +5,14 @@
     <title>Live Weather Forecast</title>
     <link rel="icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Get real-time weather updates for your city using WeatherNow.">
-    <meta name="keywords" content="weather, forecast, temperature, weather app, openweather">
+    <meta
+      name="description"
+      content="Get real-time weather updates for your city using WeatherNow."
+    />
+    <meta
+      name="keywords"
+      content="weather, forecast, temperature, weather app, openweather"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -17,7 +23,12 @@
   <body>
     <main class="weather-panel">
       <h1 class="app-title">🌤️ WeatherNow</h1>
-      <div id="offlineBanner" class="offline-banner hidden" role="status" aria-live="polite">
+      <div
+        id="offlineBanner"
+        class="offline-banner hidden"
+        role="status"
+        aria-live="polite"
+      >
         ⚠️ You’re offline. Weather updates won’t work.
         <span class="close-banner" title="Dismiss offline notice">&times;</span>
       </div>
@@ -29,7 +40,7 @@
           aria-label="City name"
           placeholder="Search city (e.g. Mumbai)"
         />
-        <button aria-label="Search" type="submit" >
+        <button aria-label="Search" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
@@ -41,6 +52,7 @@
 
       <!-- Weather Info -->
       <section class="weather-card" hidden>
+       <div class="weather-top">
         <div class="weather-left">
           <div id="weatherIcon" class="weather-icon">
             <!-- SVG Icon goes here -->
@@ -59,7 +71,7 @@
                 id="descInfoIcon"
                 class="fa-solid fa-circle-info desc-info-icon"
                 title="What does this mean?"
-                role="button" 
+                role="button"
               ></i>
             </div>
 
@@ -141,6 +153,15 @@
             <p id="lastUpdated" class="last-updated">Last updated: --</p>
           </div>
         </div>
+       </div>
+        <!-- Illustration at the bottom -->
+        <div class="weather-illustration-container">
+          <img
+            src="assets/sunny-beach.svg"
+            alt="Sunny Weather Illustration"
+            class="weather-illustration"
+          />
+        </div>
       </section>
     </main>
 
@@ -148,7 +169,12 @@
     <footer class="footer">
       <p>
         Powered by
-        <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a>
+        <a
+          href="https://openweathermap.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >OpenWeather</a
+        >
       </p>
     </footer>
 
