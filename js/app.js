@@ -54,6 +54,9 @@ const ui = {
   showWeather(data) {
     // 🔽 Hide popup if it was open from previous search
     descPopup?.classList.add("hidden");
+    weatherCard.style.overflowX = "hidden";
+    isPopupOpen = false;
+
     const { main, weather, wind, sys, clouds, visibility } = data;
 
     this.notFound.hidden = true;
@@ -253,22 +256,47 @@ window.addEventListener("offline", updateNetworkBanner);
 $(".close-banner")?.addEventListener("click", () => {
   $("#offlineBanner").classList.add("hidden");
 });
+
 // ============ Description Info Popup (ⓘ Icon) ============
 const descIcon = $("#descInfoIcon");
 const descPopup = $("#descPopup");
-const popupClose = descPopup?.querySelector(".popup-close");
+const weatherCard = $(".weather-card");
+const illustrationContainer = $(".weather-illustration-container"); // <== new
+
+let isPopupOpen = false;
 
 descIcon?.addEventListener("click", (e) => {
   e.stopPropagation();
   descPopup?.classList.toggle("hidden");
-});
+  isPopupOpen = !descPopup.classList.contains("hidden");
 
-popupClose?.addEventListener("click", () => {
-  descPopup?.classList.add("hidden");
+  if (isPopupOpen) {
+    weatherCard.style.overflowX = "visible";
+    illustrationContainer?.classList.add("popup-open");
+  } else {
+    weatherCard.style.overflowX = "hidden";
+    illustrationContainer?.classList.remove("popup-open");
+  }
 });
 
 document.addEventListener("click", (e) => {
-  if (!descPopup?.contains(e.target) && e.target !== descIcon) {
+  if (
+    isPopupOpen &&
+    !descPopup?.contains(e.target) &&
+    e.target !== descIcon
+  ) {
     descPopup?.classList.add("hidden");
+    weatherCard.style.overflowX = "hidden";
+    illustrationContainer?.classList.remove("popup-open");
+    isPopupOpen = false;
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && isPopupOpen) {
+    descPopup?.classList.add("hidden");
+    weatherCard.style.overflowX = "hidden";
+    illustrationContainer?.classList.remove("popup-open");
+    isPopupOpen = false;
   }
 });

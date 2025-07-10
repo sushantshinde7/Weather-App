@@ -22,7 +22,7 @@ body {
   place-items: center;
   background: linear-gradient(to bottom, #a8dfff 0%, #d7f0ff 100%);
   font-family: 'Segoe UI', Roboto, sans-serif;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 /* === Header === */
@@ -30,7 +30,7 @@ body {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #1a1a1a;
   letter-spacing: 0.13rem;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -94,7 +94,7 @@ body {
 /* === Panel === */
 .weather-panel {
   width: clamp(320px, 90vw, 640px);
-  padding: 2rem;
+  padding:0.75rem 2rem;
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -108,7 +108,7 @@ body {
 .search {
   display: flex;
   gap: 0.6rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .search input {
@@ -167,6 +167,7 @@ body {
 
 /* === Weather Card === */
 .weather-card {
+  position: relative;
   display: flex;
   flex-direction: column; /* stack top + illustration vertically */
   width: 100%; /* Important to allow SVG to match full width */
@@ -185,18 +186,25 @@ body {
 }
 
 .weather-top {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: nowrap;
   gap: 2rem;
 }
+/* Add this below your current .weather-illustration-container */
+
+.weather-illustration-container.popup-open {
+  transform: scaleX(1.157); /* reduces horizontal overflow temporarily */
+}
 
 /* Your existing .weather-left and .weather-right styles here */
 
 .weather-illustration-container {
   width: 100%;
-  margin-top: 0.75rem; /* nice spacing from weather content */
+  margin-top: -13.75rem; /* nice spacing from weather content */
   display: flex;
   justify-content: center;
   transform: scaleX(1.2); /* tweak value (1.10–1.15) if needed */
@@ -204,6 +212,24 @@ body {
   align-items: center;
   box-sizing: border-box;
   overflow: hidden; /* ensures scaled image doesn't overflow outside container */
+  z-index: 0;
+  transition: transform 0.3s ease-in-out;
+}
+@media (max-width: 768px) {
+  .weather-illustration-container {
+    margin-top: -10.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .weather-illustration-container {
+    margin-top: -8.8rem;
+  }
+}
+@media (max-width: 400px) {
+  .weather-illustration-container {
+    margin-top: -4rem;
+  }
 }
 
 .weather-illustration {
@@ -229,7 +255,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto 10px;
-  align-items: center; /* center instead of flex-start */
+  align-items: flex-start; /* center instead of flex-start */
   text-align: center;
   gap: 0.3rem;
   animation: fadeIn 0.6s ease-in-out;
@@ -350,7 +376,7 @@ body {
   position: absolute;
   bottom: 115%;
   right: 0;
-  z-index: 200;
+  z-index: 300;
   padding: 0.45rem 0.4rem;
   width: clamp(100px, 50vw, 260px);
   max-height: fit-content;
@@ -660,7 +686,7 @@ body {
   }
 
   .stat-row {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 0.5rem;
   }
 
