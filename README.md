@@ -1,19 +1,32 @@
 🌤️ WeatherNow
-A sleek and responsive web application that provides real-time weather updates based on city name search. Built with HTML, CSS, and JavaScript, it uses the OpenWeather API to display live weather conditions, including temperature, humidity, wind speed, sunrise, sunset, and weather descriptions with icons.
+
+WeatherNow is a sleek, responsive web app that provides real-time weather updates for any city.
+Built using HTML, CSS, and JavaScript, it fetches live data from the OpenWeather API — displaying temperature, humidity, wind speed, AQI, sunrise/sunset, and more with an elegant glassmorphism UI.
+
 
 ## 🚀 Live Demo
 🔗 [Weather App](https://sushantshinde7.github.io/Weather-App/)
-### 📌 Features
 
-| ✅ Core Features                           | 💡 Enhanced UX & Styling                     |
-|--------------------------------------------|-----------------------------------------------|
-| 🔍 Search weather by city name             | 🎨 Glassy UI with icon feedback              |
-| 🌡️ Temperature, Humidity, Wind, etc.       | 🕒 Last updated time below stats             |
-| 🌇 Sunrise & Sunset times                  | 🖼️ Dynamic weather icons                     |
-| ☁️ Cloud cover & 👁️ Visibility            | 📶 Offline support with dismissible banner   |
-| 🌫️ Dynamic weather description popup       | 🔠 ARIA labels and accessible markup         |
-| 🌬️ AQI with label, level & color badge     | 💾 Retains last city using `localStorage`    |
-| 🚫 Handles errors and invalid cities       | 🔁 Click title to reset and soft refresh     |
+
+## ✨ Features
+
+### 🌤️ Core Features
+
+- Search weather by city name  
+- View temperature, humidity, wind speed, cloud cover, and visibility  
+- Shows sunrise and sunset times  
+- Displays AQI with color-coded level badge  
+- Handles invalid or unknown city searches gracefully  
+
+### 💎 Enhanced UX
+
+- Glassy UI with icon feedback  
+- Dynamic weather icons and popups  
+- “Last updated” timestamp below stats  
+- Offline support with a dismissible banner  
+- Retains last searched city via `localStorage`  
+- Accessible markup with ARIA labels  
+- Click title to soft refresh
 
 
 ## 🛠️ Tech Stack
