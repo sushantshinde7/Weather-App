@@ -26,6 +26,7 @@ body {
   line-height: 1.5;    /* ✅ balanced spacing */
   color: #333;         /* ✅ ensure default text color */
   padding: 0.5rem 1rem;
+  scroll-behavior: smooth;  /* ✅ smoother scrolling UX */
 }
 
 /* === Header === */
@@ -99,6 +100,7 @@ body {
   width: clamp(320px, 90vw, 640px);
   padding:0.75rem 2rem;
   border-radius: var(--radius);
+  background-color: #ffffff; /* ✅ fallback solid */
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -119,13 +121,18 @@ body {
   padding: 0.75rem 1rem;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 10px;
-  background: rgba(240, 250, 255, 0.4); /* bright bluish white */
+  background: rgba(240, 250, 255, 0.4);
   color: #1a1a1a;
   font-size: 1rem;
   box-shadow: inset 1px 1px 1.5px rgba(255, 255, 255, 0.3),
               0 2px 6px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* ✅ narrowed */
+}
+
+.search input:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .search input:focus-visible {
@@ -180,6 +187,7 @@ body {
   box-shadow: var(--main-glow);
   animation: fadeIn 0.4s ease-in-out;
   transition: all 0.3s ease;
+  will-change: transform, opacity;  /* ✅ smoother animation rendering */
   overflow: visible; /* prevent scrollbars */
   overflow-x: hidden;
 }
