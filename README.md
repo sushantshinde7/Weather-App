@@ -4,8 +4,10 @@ WeatherNow is a sleek, responsive web app that provides real-time weather update
 Built using HTML, CSS, and JavaScript, it fetches live data from the OpenWeather API — displaying temperature, humidity, wind speed, AQI, sunrise/sunset, and more with an elegant glassmorphism UI.
 
 
-## 🚀 Live Demo
-🔗 [Weather App](https://sushantshinde7.github.io/Weather-App/)
+> 🔗 Live Demo: [Weather App Live](https://sushantshinde7.github.io/Weather-App/)
+
+> 📦 Repository: [weather-app](https://github.com/sushantshinde7/Weather-App)
+
 
 
 ## ✨ Features
