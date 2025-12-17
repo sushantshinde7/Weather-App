@@ -1,4 +1,4 @@
-const api_key = import.meta.env.VITE_WEATHER_API_KEY ;
+const api_key = "c6f566b1e8d04391711053c7d4144be3" ;
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
 const $ = (sel) => document.querySelector(sel);
