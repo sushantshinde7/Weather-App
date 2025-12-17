@@ -2,6 +2,9 @@ const api_key = import.meta.env.VITE_WEATHER_API_KEY ;
 const BASE = "https://api.openweathermap.org/data/2.5/weather";
 
 const $ = (sel) => document.querySelector(sel);
+
+const loading = $("#loading");
+
 const weatherDescriptions = {
   "overcast clouds":
     "‘Overcast clouds’ refer to a sky completely covered by clouds. It usually means dull weather, with very low sunlight and cooler temperatures.",
@@ -172,8 +175,11 @@ async function fetchAQI(lat, lon) {
 
 $("#searchForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const city = $("#searchInput").value.trim();
   if (!city) return ui.showError("Please enter a city");
+
+  loading.hidden = false;          // ✅ START loading
 
   try {
     const data = await fetchWeather(city);
@@ -187,6 +193,7 @@ $("#searchForm").addEventListener("submit", async (e) => {
     ui.showAQI(aqi);
   } catch (err) {
     console.error("Fetch error:", err);
+
     if (!navigator.onLine) {
       ui.showError("You're offline. Please check your internet connection.");
     } else if (err.message.toLowerCase().includes("city")) {
@@ -194,9 +201,13 @@ $("#searchForm").addEventListener("submit", async (e) => {
     } else {
       ui.showError("Something went wrong. Please try again.");
     }
+
     $("#aqiLabel").innerHTML = "--";
+  } finally {
+    loading.hidden = true;         // ✅ STOP loading (always)
   }
 });
+
 
 window.addEventListener("DOMContentLoaded", async () => {
   const savedData = localStorage.getItem("lastWeatherData");
