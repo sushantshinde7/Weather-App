@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <title>Live Weather Forecast</title>
     <link rel="icon" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />  
+    <meta name="theme-color" content="#2196f3" />
     <meta
       name="description"
       content="Get real-time weather updates for your city using WeatherNow."
@@ -22,7 +23,9 @@
 
   <body>
     <main class="weather-panel">
-      <h1 class="app-title">🌤️ WeatherNow</h1>
+      <header class="app-header">
+       <h1 class="app-title">🌤️ WeatherNow</h1>
+      </header>
       <div
         id="offlineBanner"
         class="offline-banner hidden"
@@ -30,7 +33,7 @@
         aria-live="polite"
       >
         ⚠️ You’re offline. Weather updates won’t work.
-        <span class="close-banner" title="Dismiss offline notice">&times;</span>
+        <span class="close-banner" title="Dismiss offline notice" role="button" type="button">&times;</span>
       </div>
 
       <!-- Search -->
@@ -74,8 +77,7 @@
                 role="button"
               ></i>
             </div>
-
-            <div id="descPopup" class="desc-popup hidden">
+            <div id="descPopup" class="desc-popup hidden" role="tooltip" aria-live="polite">
               <p class="popup-text">
                 “Overcast clouds” refer to a sky completely covered by clouds.
                 It usually means dull weather, with very low sunlight and cooler
@@ -87,7 +89,7 @@
           <div class="weather-details">
             <div class="stat-row">
               <div class="stat-item">
-                <i class="fa-solid fa-temperature-low"></i>
+                <i class="fa-solid fa-temperature-low" aria-hidden="true"></i>
                 <span class="label">Min</span>
                 <span id="min-temp"></span>
               </div>
@@ -156,26 +158,18 @@
        </div>
         <!-- Illustration at the bottom -->
         <div class="weather-illustration-container">
-          <img
-            src="assets/sunny-beach.svg"
-            alt="Sunny Weather Illustration"
-            class="weather-illustration"
-          />
+          <img src="assets/sunny-beach.svg" alt="Sunny Weather Illustration" class="weather-illustration" loading="lazy" />
         </div>
       </section>
     </main>
-
+    <noscript>
+     <p style="text-align:center;">⚠️ Please enable JavaScript to use WeatherNow properly.</p>
+    </noscript>
     <!-- Footer -->
-    <footer class="footer">
-      <p>
-        Powered by
-        <a
-          href="https://openweathermap.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >OpenWeather</a
-        >
-      </p>
+    <footer class="footer" role="contentinfo">  
+     <p>Powered by  
+      <a href="https://openweathermap.org/" target="_blank" rel="noopener noreferrer">OpenWeather</a>
+     </p>  
     </footer>
 
     <script src="js/app.js" type="module"></script>
