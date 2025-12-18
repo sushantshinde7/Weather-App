@@ -4,6 +4,7 @@ const BASE = "https://api.openweathermap.org/data/2.5/weather";
 const $ = (sel) => document.querySelector(sel);
 
 const loading = $("#loading");
+let isFetching = false;
 
 const weatherDescriptions = {
   "overcast clouds":
@@ -86,7 +87,9 @@ const ui = {
     this.wind.textContent = `${(wind.speed * 3.6).toFixed(1)} km/h`;
 
     this.clouds.textContent = `${clouds?.all ?? 0}%`;
-    this.visibility.textContent = `${(visibility / 1000).toFixed(1)} km`;
+    this.visibility.textContent = visibility? `${(visibility / 1000).toFixed(1)} km`
+                                            : "--";
+
 
     const convertTime = (ts) =>
       new Date(ts * 1000).toLocaleTimeString("en-IN", {
@@ -176,16 +179,20 @@ async function fetchAQI(lat, lon) {
 $("#searchForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  // ⛔ block if request already running
+  if (isFetching) return;
+
   const city = $("#searchInput").value.trim();
   if (!city) return ui.showError("Please enter a city");
 
-  loading.hidden = false;          // ✅ START loading
+  isFetching = true; // 🔒 lock
 
   try {
     const data = await fetchWeather(city);
     ui.showWeather(data);
 
     localStorage.setItem("lastCity", city);
+    $("#cityName").textContent = `${data.name}, ${data.sys.country}`;
     localStorage.setItem("lastWeatherData", JSON.stringify(data));
 
     const { lat, lon } = data.coord;
@@ -193,20 +200,13 @@ $("#searchForm").addEventListener("submit", async (e) => {
     ui.showAQI(aqi);
   } catch (err) {
     console.error("Fetch error:", err);
-
-    if (!navigator.onLine) {
-      ui.showError("You're offline. Please check your internet connection.");
-    } else if (err.message.toLowerCase().includes("city")) {
-      ui.showError("City not found");
-    } else {
-      ui.showError("Something went wrong. Please try again.");
-    }
-
+    ui.showError("Something went wrong. Please try again.");
     $("#aqiLabel").innerHTML = "--";
   } finally {
-    loading.hidden = true;         // ✅ STOP loading (always)
+    isFetching = false; // 🔓 unlock (always runs)
   }
 });
+
 
 
 window.addEventListener("DOMContentLoaded", async () => {
