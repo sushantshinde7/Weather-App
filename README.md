@@ -21,27 +21,31 @@ WeatherNow is a lightweight weather web app that provides real-time weather insi
 
 ---
 
-## 📌 Features
+## 📌 Features & UX
 
-- Search weather by city name with instant results  
-- View temperature, humidity, wind speed, visibility, and cloud cover  
-- Displays sunrise and sunset times clearly  
-- Shows Air Quality Index with color-coded status  
-- Gracefully handles invalid or unknown city searches  
-- Displays last updated timestamp for freshness  
-- Retains last searched city using LocalStorage  
-- Detects offline state and shows a dismissible banner  
-- Accessible markup with ARIA labels  
-- Clickable title for soft data refresh  
-
----
-
-## 🎨 UI & UX Highlights
-
-- Glassmorphism-inspired layout with clean visual hierarchy  
-- Dynamic weather icons based on live conditions  
-- Smooth transitions and subtle animations  
-- Mobile-first, fully responsive design  
+| Category | Feature |
+|--------|---------|
+| Search | Search weather by city name with instant results |
+| Data | Displays real-time temperature, humidity, wind speed, visibility, and cloud cover |
+| Data | Displays sunrise and sunset times clearly |
+| Data | Separate Air Quality Index (AQI) fetch using geographic coordinates |
+| Data | Color-coded AQI levels with clear, human-readable status labels |
+| Feedback | Shows last updated timestamp for data freshness |
+| UX | Context-aware weather explanations with expandable info tooltip |
+| Interaction | Clickable app title for soft weather refresh (no full reload) |
+| UI | Dynamic weather icons based on live conditions |
+| UI | Glassmorphism-inspired layout with clean visual hierarchy |
+| UI | Smooth transitions and subtle micro-animations |
+| State | Automatically restores last viewed weather state on page reload |
+| Persistence | Retains last searched city using LocalStorage |
+| Performance | Prevents duplicate API requests during active fetches (request locking) |
+| Error Handling | Gracefully handles invalid or unknown city searches |
+| Reliability | Intelligent fallbacks for partial or failed API responses |
+| Network | Network-aware UI using browser online/offline events |
+| Network | Dismissible offline status banner without blocking usage |
+| Accessibility | Accessible interactions using ARIA labels and live regions |
+| Responsive | Mobile-first, fully responsive design |
+  
 
 ---
 
